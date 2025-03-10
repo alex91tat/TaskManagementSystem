@@ -1,0 +1,56 @@
+package utcnpt.pt2025_30422_tat_dragos_assignment_1.businessLogic;
+
+import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Employee;
+import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Task;
+
+import java.util.*;
+
+public class TasksManagement {
+    private Map<Employee, List<Task>> tasksMap;
+
+    public TasksManagement() {
+        tasksMap = new HashMap<Employee, List<Task>>();
+    }
+
+    public Employee findEmployeeById(int idEmployee) {
+        return tasksMap.keySet().stream()
+                .filter(employee -> employee.getIdEmployee() == idEmployee)
+                .findFirst().orElse(null);
+    }
+
+
+    public void assignTaskToEmployee(int idEmployee, Task task) {
+        Employee employee = findEmployeeById(idEmployee);
+
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee not found");
+        }
+
+        tasksMap.computeIfAbsent(employee, e -> new ArrayList<>()).add(task);
+    }
+
+
+    public int calculateEmployeeWorkDuration(int idEmployee) {
+        Employee employee = findEmployeeById(idEmployee);
+
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee not found");
+        }
+
+        return tasksMap.getOrDefault(employee, Collections.emptyList()).stream()
+                .filter(task -> "Completed".equals(task.getStatusTask()))
+                .mapToInt(Task::estimateDuration)
+                .sum();
+    }
+
+    public void modifyTaskStatus(int idEmployee, int idTask, String newStatus) {
+        Employee employee = findEmployeeById(idEmployee);
+
+        if (employee != null) {
+            tasksMap.get(employee).stream().filter(task -> task.getIdTask() == idTask).findFirst()
+                    .ifPresent(task -> {task.setStatusTask(newStatus);});
+        }
+
+        throw new IllegalArgumentException("Employee not found");
+    }
+}
