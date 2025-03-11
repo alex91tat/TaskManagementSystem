@@ -30,11 +30,7 @@ public non-sealed class ComplexTask extends Task {
     }
 
     public void removeTask(Task task) {
-        for (Task t : tasks) {
-            if (t.getIdTask() == task.getIdTask()) {
-                this.tasks.remove(t);
-            }
-        }
+        tasks.removeIf(t -> t.getIdTask() == task.getIdTask());
     }
 
     @Override

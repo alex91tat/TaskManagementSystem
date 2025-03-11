@@ -18,7 +18,6 @@ public class TasksManagement {
                 .findFirst().orElse(null);
     }
 
-
     public void assignTaskToEmployee(int idEmployee, Task task) {
         Employee employee = findEmployeeById(idEmployee);
 
@@ -28,7 +27,6 @@ public class TasksManagement {
 
         tasksMap.computeIfAbsent(employee, e -> new ArrayList<>()).add(task);
     }
-
 
     public int calculateEmployeeWorkDuration(int idEmployee) {
         Employee employee = findEmployeeById(idEmployee);
@@ -52,5 +50,19 @@ public class TasksManagement {
         }
 
         throw new IllegalArgumentException("Employee not found");
+    }
+
+    public List<Employee> getEmployees() {
+        return new ArrayList<>(tasksMap.keySet());
+    }
+
+    public List<Task> getTasksForEmployee(int idEmployee) {
+        Employee employee = findEmployeeById(idEmployee);
+
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee not found");
+        }
+
+        return tasksMap.getOrDefault(employee, Collections.emptyList());
     }
 }
