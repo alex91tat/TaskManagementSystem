@@ -1,13 +1,19 @@
 package utcnpt.pt2025_30422_tat_dragos_assignment_1.businessLogic;
 
+import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.ComplexTask;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Employee;
+import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.SimpleTask;
+import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Task;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utility {
+    private static List<Task> tasksList;
+
+    public Utility() {
+        this.tasksList = new ArrayList<>();
+    }
 
     public static void displayAllEmployeesWithHighWorkDuration(TasksManagement tasksManagement) {
         tasksManagement.getEmployees().stream()
@@ -33,5 +39,38 @@ public class Utility {
                             return tasksCounting;
                         }
                 ));
+    }
+
+    ///we will use overloading
+    public static void addTaskToList(int idTask, String statusTask, String nameTask, int startHour, int endHour) {
+        Task currentTask = new SimpleTask(startHour, endHour, idTask, statusTask, nameTask);
+        if (!tasksList.contains(currentTask)) {
+            tasksList.add(currentTask);
+        }
+
+        throw new IllegalArgumentException("Task already exists.");
+    }
+
+    public static void addTaskToList(int idTask, String statusTask, String nameTask, List<Task> tasks) {
+        Task currentTask = new ComplexTask(idTask, statusTask, nameTask);
+
+        if (!tasksList.contains(currentTask)) {
+            tasksList.add(currentTask);
+            for (Task t : tasks) {
+                ((ComplexTask) currentTask).addTask(t);
+            }
+        } else {
+            throw new IllegalArgumentException("Task already exists.");
+        }
+    }
+
+
+    public static void addEmployee(int idEmployee, String name, TasksManagement tasksManagement) {
+        Employee currentEmployee = new Employee(idEmployee, name);
+        if (tasksManagement.findEmployeeById(currentEmployee.getIdEmployee()) != null) {
+            throw new IllegalArgumentException("Employee already exists.");
+        }
+
+        tasksManagement.getTasksMap().put(currentEmployee, new ArrayList<>());
     }
 }

@@ -1,6 +1,8 @@
 package utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
     private int idEmployee;
     private String name;
 

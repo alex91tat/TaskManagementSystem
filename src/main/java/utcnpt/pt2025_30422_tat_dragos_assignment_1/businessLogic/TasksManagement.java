@@ -3,13 +3,22 @@ package utcnpt.pt2025_30422_tat_dragos_assignment_1.businessLogic;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Employee;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Task;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class TasksManagement {
+public class TasksManagement implements Serializable {
     private Map<Employee, List<Task>> tasksMap;
 
     public TasksManagement() {
-        tasksMap = new HashMap<Employee, List<Task>>();
+        tasksMap = new HashMap<>();
+    }
+
+    public Map<Employee, List<Task>> getTasksMap() {
+        return tasksMap;
+    }
+
+    public List<Employee> getEmployees() {
+        return new ArrayList<>(tasksMap.keySet());
     }
 
     public Employee findEmployeeById(int idEmployee) {
@@ -18,11 +27,25 @@ public class TasksManagement {
                 .findFirst().orElse(null);
     }
 
-    public void assignTaskToEmployee(int idEmployee, Task task) {
-        Employee employee = findEmployeeById(idEmployee);
+    public Employee findEmployeeByName(String name) {
+        return tasksMap.keySet().stream()
+                .filter(employee -> employee.getName().equals(name))
+                .findFirst().orElse(null);
+    }
 
-        if (employee == null) {
-            throw new IllegalArgumentException("Employee not found");
+    public Task findTaskByName(String taskName) {
+        return tasksMap.values().stream().flatMap(List::stream)
+                .filter(task -> task.getNameTask().equals(taskName))
+                .findFirst().orElse(null);
+    }
+
+
+    public void assignTaskToEmployee(String employeeName, String taskName) {
+        Employee employee = findEmployeeByName(employeeName);
+        Task task = findTaskByName(taskName);
+
+        if (employee == null || task == null) {
+            throw new IllegalArgumentException("Employee or task not found.");
         }
 
         tasksMap.computeIfAbsent(employee, e -> new ArrayList<>()).add(task);
@@ -52,10 +75,6 @@ public class TasksManagement {
         throw new IllegalArgumentException("Employee not found");
     }
 
-    public List<Employee> getEmployees() {
-        return new ArrayList<>(tasksMap.keySet());
-    }
-
     public List<Task> getTasksForEmployee(int idEmployee) {
         Employee employee = findEmployeeById(idEmployee);
 
@@ -65,4 +84,5 @@ public class TasksManagement {
 
         return tasksMap.getOrDefault(employee, Collections.emptyList());
     }
+
 }

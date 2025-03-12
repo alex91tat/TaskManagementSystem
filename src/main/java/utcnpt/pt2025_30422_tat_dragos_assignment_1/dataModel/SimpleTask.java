@@ -1,11 +1,13 @@
 package utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel;
 
-public non-sealed class SimpleTask extends Task {
+import java.io.Serializable;
+
+public non-sealed class SimpleTask extends Task implements Serializable {
     private  int startHour;
     private int endHour;
 
-    public SimpleTask(int startHour, int endHour, int idTask, String statusTask) {
-        super(idTask, statusTask);
+    public SimpleTask(int startHour, int endHour, int idTask, String statusTask, String nameTask) {
+        super(idTask, statusTask, nameTask);
         this.startHour = startHour;
         this.endHour = endHour;
     }

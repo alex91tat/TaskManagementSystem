@@ -1,13 +1,14 @@
 package utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public non-sealed class ComplexTask extends Task {
+public non-sealed class ComplexTask extends Task implements Serializable {
     private List<Task> tasks;
 
-    public ComplexTask(int idTask, String statusTask) {
-        super(idTask, statusTask);
+    public ComplexTask(int idTask, String statusTask, String nameTask) {
+        super(idTask, statusTask, nameTask);
         this.tasks = new ArrayList<Task>();
     }
 
