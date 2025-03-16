@@ -42,35 +42,85 @@ public class Utility {
     }
 
     ///we will use overloading
-    public static void addTaskToList(int idTask, String statusTask, String nameTask, int startHour, int endHour) {
+    public static void createTask(int idTask, String statusTask, String nameTask, int startHour, int endHour) {
         Task currentTask = new SimpleTask(startHour, endHour, idTask, statusTask, nameTask);
-        if (!tasksList.contains(currentTask)) {
-            tasksList.add(currentTask);
-        }
-
-        throw new IllegalArgumentException("Task already exists.");
-    }
-
-    public static void addTaskToList(int idTask, String statusTask, String nameTask, List<Task> tasks) {
-        Task currentTask = new ComplexTask(idTask, statusTask, nameTask);
-
-        if (!tasksList.contains(currentTask)) {
-            tasksList.add(currentTask);
-            for (Task t : tasks) {
-                ((ComplexTask) currentTask).addTask(t);
-            }
-        } else {
+        if (tasksList.contains(currentTask)) {
             throw new IllegalArgumentException("Task already exists.");
         }
+
+        tasksList.add(currentTask);
+    }
+
+//    public static void createTask(int idTask, String statusTask, String nameTask, List<String> taskNames) {
+//        ComplexTask currentTask = new ComplexTask(idTask, statusTask, nameTask);
+//        if (tasksList.stream().anyMatch(task -> task.getIdTask() == idTask)) {
+//            throw new IllegalArgumentException("Task already exists.");
+//        }
+//
+//        for (String taskName : taskNames) {
+//            Optional<Task> foundTask = tasksList.stream()
+//                    .filter(task -> task.getNameTask().equals(taskName))
+//                    .findFirst();
+//
+//            foundTask.ifPresent(currentTask::addTask);
+//        }
+//
+//        tasksList.add(currentTask);
+//        System.out.println("Created Task: " + currentTask.getIdTask());
+//    }
+
+
+    public static void createTask(int idTask, String statusTask, String nameTask, List<String> tasksNames) {
+        ComplexTask currentTask = new ComplexTask(idTask, statusTask, nameTask);
+
+        if (tasksList.stream().anyMatch(task -> task.getIdTask() == idTask)) {
+            throw new IllegalArgumentException("Task already exists.");
+        }
+
+        for (String taskName : tasksNames) {
+            tasksList.stream()
+                    .filter(task -> task.getNameTask().equals(taskName))
+                    .findFirst().ifPresent(currentTask::addTask);
+
+//            tasksList.stream()
+//                    .filter(task -> task.getNameTask().equals(taskName))
+//                    .findFirst()
+//                    .orElse(null);
+
+        }
+
+        tasksList.add(currentTask);
     }
 
 
-    public static void addEmployee(int idEmployee, String name, TasksManagement tasksManagement) {
+    public static void createEmployee(int idEmployee, String name, TasksManagement tasksManagement) {
         Employee currentEmployee = new Employee(idEmployee, name);
         if (tasksManagement.findEmployeeById(currentEmployee.getIdEmployee()) != null) {
             throw new IllegalArgumentException("Employee already exists.");
         }
 
         tasksManagement.getTasksMap().put(currentEmployee, new ArrayList<>());
+    }
+
+    public static Task findTaskById(int idTask) {
+        return tasksList.stream()
+                .filter(task -> task.getIdTask() == idTask)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static Task findTaskByName(String taskName) {
+        return tasksList.stream()
+                .filter(task -> task.getNameTask().equals(taskName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static void setTasksList(List<Task> tasksList) {
+        Utility.tasksList = tasksList;
+    }
+
+    public static List<Task> getTasksList() {
+        return tasksList;
     }
 }

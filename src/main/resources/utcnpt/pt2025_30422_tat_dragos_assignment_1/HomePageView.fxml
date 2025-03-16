@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utcnpt.pt2025_30422_tat_dragos_assignment_1.HomePageController">
+   <children>
+      <Button fx:id="ok" layoutX="48.0" layoutY="162.0" mnemonicParsing="false" onAction="#okOnAction" text="Button" />
+   </children>
+</AnchorPane>

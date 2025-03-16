@@ -25,9 +25,8 @@ public non-sealed class ComplexTask extends Task implements Serializable {
             if (t.getIdTask() == task.getIdTask()) {
                 throw new IllegalArgumentException("Task already exists");
             }
-
-            this.tasks.add(task);
         }
+        this.tasks.add(task);
     }
 
     public void removeTask(Task task) {
@@ -36,11 +35,8 @@ public non-sealed class ComplexTask extends Task implements Serializable {
 
     @Override
     public int estimateDuration() {
-        int totalDuration = 0;
-        for (Task task : tasks) {
-            totalDuration += task.estimateDuration();
-        }
-
-        return totalDuration;
+        return this.tasks.stream()
+                .mapToInt(Task::estimateDuration)
+                .sum();
     }
 }

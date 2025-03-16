@@ -30,6 +30,10 @@ public non-sealed class SimpleTask extends Task implements Serializable {
 
     @Override
     public int estimateDuration() {
-        return endHour - startHour;
+        if (this.getStatusTask().equals("Completed")) {
+            return endHour - startHour;
+        }
+
+        return 0;
     }
 }

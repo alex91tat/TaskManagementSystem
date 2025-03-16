@@ -1,5 +1,6 @@
 package utcnpt.pt2025_30422_tat_dragos_assignment_1.businessLogic;
 
+import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.ComplexTask;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Employee;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Task;
 
@@ -27,25 +28,13 @@ public class TasksManagement implements Serializable {
                 .findFirst().orElse(null);
     }
 
-    public Employee findEmployeeByName(String name) {
-        return tasksMap.keySet().stream()
-                .filter(employee -> employee.getName().equals(name))
-                .findFirst().orElse(null);
-    }
+    public void assignTaskToEmployee(int idEmployee, Task task) {
+        Employee employee = findEmployeeById(idEmployee);
 
-    public Task findTaskByName(String taskName) {
-        return tasksMap.values().stream().flatMap(List::stream)
-                .filter(task -> task.getNameTask().equals(taskName))
-                .findFirst().orElse(null);
-    }
-
-
-    public void assignTaskToEmployee(String employeeName, String taskName) {
-        Employee employee = findEmployeeByName(employeeName);
-        Task task = findTaskByName(taskName);
-
-        if (employee == null || task == null) {
-            throw new IllegalArgumentException("Employee or task not found.");
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee not found.");
+        } else if (task == null) {
+            throw new IllegalArgumentException("Task not found.");
         }
 
         tasksMap.computeIfAbsent(employee, e -> new ArrayList<>()).add(task);
@@ -67,13 +56,21 @@ public class TasksManagement implements Serializable {
     public void modifyTaskStatus(int idEmployee, int idTask, String newStatus) {
         Employee employee = findEmployeeById(idEmployee);
 
-        if (employee != null) {
-            tasksMap.get(employee).stream().filter(task -> task.getIdTask() == idTask).findFirst()
-                    .ifPresent(task -> {task.setStatusTask(newStatus);});
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee not found");
         }
 
-        throw new IllegalArgumentException("Employee not found");
+        tasksMap.getOrDefault(employee, new ArrayList<>()).stream()
+                .filter(task -> task.getIdTask() == idTask)
+                .findFirst()
+                .ifPresent(task -> {
+                    task.setStatusTask(newStatus);
+                     if (task instanceof ComplexTask) {
+                        ((ComplexTask) task).getTasks().forEach(subTask -> subTask.setStatusTask(newStatus));
+                    }
+                });
     }
+
 
     public List<Task> getTasksForEmployee(int idEmployee) {
         Employee employee = findEmployeeById(idEmployee);
@@ -83,6 +80,10 @@ public class TasksManagement implements Serializable {
         }
 
         return tasksMap.getOrDefault(employee, Collections.emptyList());
+    }
+
+    public void setTasksMap(Map<Employee, List<Task>> tasksMap) {
+        this.tasksMap = tasksMap;
     }
 
 }
