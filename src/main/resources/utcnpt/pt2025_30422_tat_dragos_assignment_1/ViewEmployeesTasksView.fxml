@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utcnpt.pt2025_30422_tat_dragos_assignment_1.userInterface.ViewEmployeesTasksController">
+   <children>
+      <AnchorPane prefHeight="82.0" prefWidth="1200.0" style="-fx-background-color: gray;">
+         <children>
+            <Label layoutX="351.0" layoutY="13.0" prefHeight="50.0" prefWidth="498.0" style="-fx-text-fill: black;" text="View Employees and Tasks">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <Button fx:id="backButton" layoutX="1069.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="40.0" prefWidth="125.0" text="Back" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="employeeTaskTableView" layoutX="40.0" layoutY="166.0" prefHeight="200.0" prefWidth="1144.0">
+        <columns>
+          <TableColumn fx:id="employeeIdColumn" prefWidth="95.20000076293945" text="Employee Id" />
+          <TableColumn fx:id="employeeNameColumn" prefWidth="280.8000183105469" text="Employee Name" />
+            <TableColumn fx:id="taskNamesColumn" prefWidth="610.3998718261719" text="Tasks Names" />
+            <TableColumn fx:id="totalDurationColumn" prefWidth="155.7333984375" text="Estimation of Duration" />
+        </columns>
+      </TableView>
+      <TableView fx:id="allTasksTableView" layoutX="38.0" layoutY="447.0" prefHeight="200.0" prefWidth="1109.0">
+        <columns>
+          <TableColumn fx:id="taskIdColumn" prefWidth="84.26667404174805" text="Task Id" />
+          <TableColumn fx:id="taskNameColumn" prefWidth="354.1333465576172" text="Task Name" />
+            <TableColumn fx:id="taskTypeColumn" prefWidth="344.26666259765625" text="Task Type" />
+            <TableColumn fx:id="taskDurationColumn" prefWidth="326.66668701171875" text="Estimation of Duration" />
+        </columns>
+      </TableView>
+      <Label layoutX="579.0" layoutY="110.0" />
+   </children>
+</AnchorPane>

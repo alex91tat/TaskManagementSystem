@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="927.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utcnpt.pt2025_30422_tat_dragos_assignment_1.userInterface.ManageEmployeesAndTasksController">
+
+    <children>
+        <AnchorPane prefHeight="76.0" prefWidth="1200.0" style="-fx-background-color: #777777;">
+            <children>
+                <Label layoutX="351.0" layoutY="13.0" prefHeight="50.0" prefWidth="498.0" style="-fx-text-fill: black;" text="Manage Employees and Tasks">
+                    <font>
+                        <Font size="34.0" />
+                    </font>
+                </Label>
+                <Button fx:id="backButton" layoutX="1069.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="40.0" prefWidth="125.0" text="Back" />
+            </children>
+        </AnchorPane>
+      <AnchorPane layoutX="180.0" layoutY="135.0" prefHeight="286.0" prefWidth="260.0" />
+      <AnchorPane layoutX="450.0" layoutY="150.0" prefHeight="674.0" prefWidth="310.0" style="-fx-background-color: gray;">
+         <children>
+            <Label layoutX="108.0" layoutY="5.0" text="Add Task">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="taskTypeBox" layoutX="126.0" layoutY="175.0" prefWidth="150.0" />
+            <Label layoutX="21.0" layoutY="173.0" text="Task Type">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <TextField fx:id="idTaskTextField" layoutX="18.0" layoutY="40.0" prefHeight="41.0" prefWidth="281.0" promptText="id Task">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="nameTaskTextField" layoutX="17.0" layoutY="100.0" prefHeight="20.0" prefWidth="282.0" promptText="Task Name">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <TableView fx:id="taskTableView" layoutX="10.0" layoutY="370.0" prefHeight="201.0" prefWidth="290.0">
+              <columns>
+                <TableColumn fx:id="idColumn" prefWidth="130.6666259765625" text="Task Id" />
+                <TableColumn fx:id="nameColumn" prefWidth="154.1334228515625" text="Task Name" />
+              </columns>
+            </TableView>
+            <TextField fx:id="startHourTextField" layoutX="12.0" layoutY="250.0" prefHeight="20.0" prefWidth="282.0" promptText="Start Hour">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="endHourTextField" layoutX="15.0" layoutY="314.0" prefHeight="20.0" prefWidth="282.0" promptText="End Hour">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Button fx:id="addTaskButton" layoutX="53.0" layoutY="605.0" mnemonicParsing="false" onAction="#addTaskButtonOnAction" prefHeight="51.0" prefWidth="212.0" text="Add Task">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="850.0" layoutY="150.0" prefHeight="670.0" prefWidth="310.0" style="-fx-background-color: gray;">
+         <children>
+            <Label layoutX="45.0" layoutY="17.0" text="Assign Task to Employee">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="idEmployeeAssigTextField" layoutX="10.0" layoutY="55.0" prefHeight="42.0" prefWidth="295.0" promptText="Id Employee">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="idTaskAssigTextField" layoutX="9.0" layoutY="114.0" prefHeight="42.0" prefWidth="297.0" promptText="Id Task">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Button fx:id="assignButton" layoutX="73.0" layoutY="231.0" mnemonicParsing="false" onAction="#assignTaskButtonOnAction" prefHeight="57.0" prefWidth="170.0" text="Assign Task">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="30.0" layoutY="150.0" prefHeight="667.0" prefWidth="310.0" style="-fx-background-color: gray;">
+         <children>
+            <Label layoutX="85.0" layoutY="27.0" text="Add Employee">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <TextField fx:id="idEmployeeTextField" layoutX="14.0" layoutY="94.0" prefHeight="41.0" prefWidth="281.0" promptText="Id Employee">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="nameEmployeeTextField" layoutX="18.0" layoutY="178.0" prefHeight="41.0" prefWidth="281.0" promptText="Employee Name">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Button fx:id="addEmployeeButton" layoutX="65.0" layoutY="356.0" mnemonicParsing="false" onAction="#addEmployeeButtonOnAction" prefHeight="26.0" prefWidth="182.0" text="Add Employee">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

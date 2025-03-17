@@ -15,21 +15,21 @@ public class Utility {
         this.tasksList = new ArrayList<>();
     }
 
-    public static void displayAllEmployeesWithHighWorkDuration(TasksManagement tasksManagement) {
-        tasksManagement.getEmployees().stream()
-                .filter(e -> tasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee()) > 40)
-                .sorted(Comparator.comparingInt(e -> tasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee())))
+    public static void displayAllEmployeesWithHighWorkDuration() {
+        TasksManagement.getEmployees().stream()
+                .filter(e -> TasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee()) > 40)
+                .sorted(Comparator.comparingInt(e -> TasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee())))
                 .map(Employee::getName)
                 .forEach(System.out::println);
     }
 
-    public static Map<String, Map<String, Integer>> getTaskStatusCount(TasksManagement tasksManagement) {
-        return tasksManagement.getEmployees().stream()
+    public static Map<String, Map<String, Integer>> getTaskStatusCount() {
+        return TasksManagement.getEmployees().stream()
                 .collect(Collectors.toMap(Employee::getName, employee -> {
                     Map<String, Integer> tasksCounting = new HashMap<>();
                             tasksCounting.put("Completed", 0);
                             tasksCounting.put("Uncompleted", 0);
-                            tasksManagement.getTasksForEmployee(employee.getIdEmployee()).forEach(task -> {
+                            TasksManagement.getTasksForEmployee(employee.getIdEmployee()).forEach(task -> {
                                 if ("Completed".equals(task.getStatusTask())) {
                                     tasksCounting.put("Completed", tasksCounting.get("Completed") + 1);
                                 } else {
@@ -42,8 +42,8 @@ public class Utility {
     }
 
     ///we will use overloading
-    public static void createTask(int idTask, String statusTask, String nameTask, int startHour, int endHour) {
-        Task currentTask = new SimpleTask(startHour, endHour, idTask, statusTask, nameTask);
+    public static void createTask(int idTask, String nameTask, int startHour, int endHour) {
+        Task currentTask = new SimpleTask(startHour, endHour, idTask, nameTask);
         if (tasksList.contains(currentTask)) {
             throw new IllegalArgumentException("Task already exists.");
         }
@@ -70,17 +70,18 @@ public class Utility {
 //    }
 
 
-    public static void createTask(int idTask, String statusTask, String nameTask, List<String> tasksNames) {
-        ComplexTask currentTask = new ComplexTask(idTask, statusTask, nameTask);
+    public static void createTask(int idTask, String nameTask, List<Task> tasks) {
+        ComplexTask currentTask = new ComplexTask(idTask, nameTask);
 
         if (tasksList.stream().anyMatch(task -> task.getIdTask() == idTask)) {
             throw new IllegalArgumentException("Task already exists.");
         }
 
-        for (String taskName : tasksNames) {
-            tasksList.stream()
-                    .filter(task -> task.getNameTask().equals(taskName))
-                    .findFirst().ifPresent(currentTask::addTask);
+        for (Task task : tasks) {
+            currentTask.addTask(task);
+//            tasksList.stream()
+//                    .filter(task -> task.getNameTask().equals(taskName))
+//                    .findFirst().ifPresent(currentTask::addTask);
 
 //            tasksList.stream()
 //                    .filter(task -> task.getNameTask().equals(taskName))
@@ -93,13 +94,13 @@ public class Utility {
     }
 
 
-    public static void createEmployee(int idEmployee, String name, TasksManagement tasksManagement) {
+    public static void createEmployee(int idEmployee, String name) {
         Employee currentEmployee = new Employee(idEmployee, name);
-        if (tasksManagement.findEmployeeById(currentEmployee.getIdEmployee()) != null) {
+        if (TasksManagement.findEmployeeById(currentEmployee.getIdEmployee()) != null) {
             throw new IllegalArgumentException("Employee already exists.");
         }
 
-        tasksManagement.getTasksMap().put(currentEmployee, new ArrayList<>());
+        TasksManagement.getTasksMap().put(currentEmployee, new ArrayList<>());
     }
 
     public static Task findTaskById(int idTask) {

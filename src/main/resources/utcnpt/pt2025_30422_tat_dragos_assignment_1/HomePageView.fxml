@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utcnpt.pt2025_30422_tat_dragos_assignment_1.HomePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utcnpt.pt2025_30422_tat_dragos_assignment_1.userInterface.HomePageController">
    <children>
-      <Button fx:id="ok" layoutX="48.0" layoutY="162.0" mnemonicParsing="false" onAction="#okOnAction" text="Button" />
+      <AnchorPane layoutX="-2.0" prefHeight="75.0" prefWidth="1200.0" style="-fx-background-color: gray;">
+         <children>
+            <Label alignment="CENTER" layoutX="369.0" layoutY="13.0" prefHeight="24.0" prefWidth="462.0" style="-fx-background-color: gray;" text="Task Management System">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="manageButton" layoutX="52.0" layoutY="102.0" mnemonicParsing="false" onAction="#manageButtonOnAction" prefHeight="56.0" prefWidth="186.0" text="Manage Employees and Tasks" />
+      <Button fx:id="modifyStatusButton" layoutX="507.0" layoutY="102.0" mnemonicParsing="false" onAction="#modifyStatusButtonOnAction" prefHeight="56.0" prefWidth="186.0" text="Modify Status for Tasks" />
+      <Button fx:id="statisticsButton" layoutX="963.0" layoutY="102.0" mnemonicParsing="false" onAction="#statisticsButtonOnAction" prefHeight="56.0" prefWidth="186.0" text="Statistics" />
+      <Button fx:id="viewEmployeesButton" layoutX="52.0" layoutY="233.0" mnemonicParsing="false" onAction="#viewEmployeesButtonOnAction" prefHeight="56.0" prefWidth="186.0" text="View Employees and Tasks" />
    </children>
 </AnchorPane>

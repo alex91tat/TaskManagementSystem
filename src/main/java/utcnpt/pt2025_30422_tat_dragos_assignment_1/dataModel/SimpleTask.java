@@ -6,8 +6,8 @@ public non-sealed class SimpleTask extends Task implements Serializable {
     private  int startHour;
     private int endHour;
 
-    public SimpleTask(int startHour, int endHour, int idTask, String statusTask, String nameTask) {
-        super(idTask, statusTask, nameTask);
+    public SimpleTask(int startHour, int endHour, int idTask, String nameTask) {
+        super(idTask, nameTask);
         this.startHour = startHour;
         this.endHour = endHour;
     }
@@ -30,10 +30,6 @@ public non-sealed class SimpleTask extends Task implements Serializable {
 
     @Override
     public int estimateDuration() {
-        if (this.getStatusTask().equals("Completed")) {
-            return endHour - startHour;
-        }
-
-        return 0;
+        return endHour - startHour;
     }
 }

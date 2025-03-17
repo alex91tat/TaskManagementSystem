@@ -7,9 +7,9 @@ public sealed abstract class Task implements Serializable permits SimpleTask, Co
     private String statusTask;
     private String nameTask;
 
-    public Task(int idTask, String statusTask, String nameTask) {
+    public Task(int idTask, String nameTask) {
         this.idTask = idTask;
-        this.statusTask = statusTask;
+        this.statusTask = "Uncompleted";
         this.nameTask = nameTask;
     }
 

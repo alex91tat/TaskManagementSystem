@@ -7,8 +7,8 @@ import java.util.List;
 public non-sealed class ComplexTask extends Task implements Serializable {
     private List<Task> tasks;
 
-    public ComplexTask(int idTask, String statusTask, String nameTask) {
-        super(idTask, statusTask, nameTask);
+    public ComplexTask(int idTask, String nameTask) {
+        super(idTask, nameTask);
         this.tasks = new ArrayList<Task>();
     }
 

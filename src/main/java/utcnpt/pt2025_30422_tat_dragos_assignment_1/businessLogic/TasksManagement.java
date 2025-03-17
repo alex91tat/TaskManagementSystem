@@ -8,27 +8,27 @@ import java.io.Serializable;
 import java.util.*;
 
 public class TasksManagement implements Serializable {
-    private Map<Employee, List<Task>> tasksMap;
+    private static Map<Employee, List<Task>> tasksMap;
 
     public TasksManagement() {
         tasksMap = new HashMap<>();
     }
 
-    public Map<Employee, List<Task>> getTasksMap() {
+    public static Map<Employee, List<Task>> getTasksMap() {
         return tasksMap;
     }
 
-    public List<Employee> getEmployees() {
+    public static List<Employee> getEmployees() {
         return new ArrayList<>(tasksMap.keySet());
     }
 
-    public Employee findEmployeeById(int idEmployee) {
+    public static Employee findEmployeeById(int idEmployee) {
         return tasksMap.keySet().stream()
                 .filter(employee -> employee.getIdEmployee() == idEmployee)
                 .findFirst().orElse(null);
     }
 
-    public void assignTaskToEmployee(int idEmployee, Task task) {
+    public static void assignTaskToEmployee(int idEmployee, Task task) {
         Employee employee = findEmployeeById(idEmployee);
 
         if (employee == null) {
@@ -40,7 +40,7 @@ public class TasksManagement implements Serializable {
         tasksMap.computeIfAbsent(employee, e -> new ArrayList<>()).add(task);
     }
 
-    public int calculateEmployeeWorkDuration(int idEmployee) {
+    public static int calculateEmployeeWorkDuration(int idEmployee) {
         Employee employee = findEmployeeById(idEmployee);
 
         if (employee == null) {
@@ -53,7 +53,7 @@ public class TasksManagement implements Serializable {
                 .sum();
     }
 
-    public void modifyTaskStatus(int idEmployee, int idTask, String newStatus) {
+    public static void modifyTaskStatus(int idEmployee, int idTask, String newStatus) {
         Employee employee = findEmployeeById(idEmployee);
 
         if (employee == null) {
@@ -72,7 +72,7 @@ public class TasksManagement implements Serializable {
     }
 
 
-    public List<Task> getTasksForEmployee(int idEmployee) {
+    public static List<Task> getTasksForEmployee(int idEmployee) {
         Employee employee = findEmployeeById(idEmployee);
 
         if (employee == null) {
@@ -82,8 +82,8 @@ public class TasksManagement implements Serializable {
         return tasksMap.getOrDefault(employee, Collections.emptyList());
     }
 
-    public void setTasksMap(Map<Employee, List<Task>> tasksMap) {
-        this.tasksMap = tasksMap;
+    public static void setTasksMap(Map<Employee, List<Task>> taskMap) {
+        tasksMap = taskMap;
     }
 
 }
