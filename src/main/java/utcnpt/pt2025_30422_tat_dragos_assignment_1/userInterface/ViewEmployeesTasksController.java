@@ -46,10 +46,11 @@ public class ViewEmployeesTasksController {
     private TableColumn<Task, String> taskTypeColumn;
     @FXML
     private TableColumn<Task, Integer> taskDurationColumn;
+    @FXML
+    private TableColumn<Task, String> taskStatusColumn;
 
     @FXML
     private void initialize() {
-        // Set up the table columns for the employee-task table
         employeeIdColumn.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(cellData.getValue().getKey().getIdEmployee()).asObject()
         );
@@ -74,10 +75,8 @@ public class ViewEmployeesTasksController {
                 ).asObject()
         );
 
-        // Load data into the employee-task table
         loadEmployeeTaskData();
 
-        // Set up the table columns for the all-tasks table
         taskIdColumn.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(cellData.getValue().getIdTask()).asObject()
         );
@@ -96,28 +95,27 @@ public class ViewEmployeesTasksController {
                 new SimpleIntegerProperty(cellData.getValue().estimateDuration()).asObject()
         );
 
-        // Load data into the all-tasks table
+        taskStatusColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getStatusTask())
+        );
+
         loadAllTasksData();
     }
 
     private void loadEmployeeTaskData() {
         Map<Employee, List<Task>> tasksMap = TasksManagement.getTasksMap();
 
-        // Convert the map entries to an ObservableList
         ObservableList<Map.Entry<Employee, List<Task>>> employeeTaskDataList =
                 FXCollections.observableArrayList(tasksMap.entrySet());
 
-        // Set the data in the TableView
         employeeTaskTableView.setItems(employeeTaskDataList);
     }
 
     private void loadAllTasksData() {
         List<Task> tasksList = Utility.getTasksList();
 
-        // Convert the list to an ObservableList
         ObservableList<Task> observableTasks = FXCollections.observableArrayList(tasksList);
 
-        // Set the data in the TableView
         allTasksTableView.setItems(observableTasks);
     }
 

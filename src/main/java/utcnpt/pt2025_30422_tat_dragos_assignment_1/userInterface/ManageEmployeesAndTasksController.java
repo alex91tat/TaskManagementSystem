@@ -9,12 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.businessLogic.TasksManagement;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.businessLogic.Utility;
-import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Employee;
 import utcnpt.pt2025_30422_tat_dragos_assignment_1.dataModel.Task;
 
 import java.util.ArrayList;
@@ -68,7 +66,6 @@ public class ManageEmployeesAndTasksController {
             int idEmployee = Integer.parseInt(idEmployeeText);
             int idTask = Integer.parseInt(idTaskText);
 
-            // Find the Task object by ID
             Task taskToAssign = Utility.findTaskById(idTask);
             if (taskToAssign == null) {
                 System.out.println("Error: Task with ID " + idTask + " not found.");
@@ -89,13 +86,12 @@ public class ManageEmployeesAndTasksController {
 
     @FXML
     private void initialize() {
-        // Set up the table columns with custom cell value factories
         idColumn.setCellValueFactory(cellData -> {
             Task task = cellData.getValue();
             if (task != null) {
                 return new SimpleIntegerProperty(task.getIdTask()).asObject();
             } else {
-                return new SimpleIntegerProperty(0).asObject(); // Default value for null
+                return new SimpleIntegerProperty(0).asObject();
             }
         });
 
@@ -104,25 +100,23 @@ public class ManageEmployeesAndTasksController {
             if (task != null) {
                 return new SimpleStringProperty(task.getNameTask());
             } else {
-                return new SimpleStringProperty(""); // Default value for null
+                return new SimpleStringProperty("");
             }
         });
 
-        // Load tasks into the table
         loadTasksIntoTable();
 
-        // Set up task type selection logic
         taskTypeBox.getItems().addAll("Simple", "Complex");
 
         taskTypeBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if ("Simple".equals(newValue)) {
                 taskTableView.setDisable(true);
-                taskTableView.getSelectionModel().clearSelection(); // Clear previous selection
+                taskTableView.getSelectionModel().clearSelection();
                 startHourTextField.setDisable(false);
                 endHourTextField.setDisable(false);
             } else if ("Complex".equals(newValue)) {
                 taskTableView.setDisable(false);
-                taskTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // Allow multiple selections
+                taskTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
                 startHourTextField.setDisable(true);
                 endHourTextField.setDisable(true);
                 startHourTextField.clear();
@@ -145,9 +139,8 @@ public class ManageEmployeesAndTasksController {
         try {
             int taskId = Integer.parseInt(taskIdText);
 
-            // Ensure default values for name and id
             if (tasksName.isEmpty()) {
-                tasksName = "Unnamed Task"; // Default name
+                tasksName = "Unnamed Task";
             }
 
             if ("Simple".equals(taskType)) {
@@ -167,11 +160,10 @@ public class ManageEmployeesAndTasksController {
 
     @FXML
     private void loadTasksIntoTable() {
-        List<Task> taskList = Utility.getTasksList(); // Get tasks from Utility class
+        List<Task> taskList = Utility.getTasksList();
 
-        // Handle null or empty list
         if (taskList == null) {
-            taskList = new ArrayList<>(); // Initialize an empty list
+            taskList = new ArrayList<>();
         }
 
         ObservableList<Task> observableTasks = FXCollections.observableArrayList(taskList);

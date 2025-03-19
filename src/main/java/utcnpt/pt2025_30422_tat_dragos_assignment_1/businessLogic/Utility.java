@@ -15,12 +15,21 @@ public class Utility {
         this.tasksList = new ArrayList<>();
     }
 
-    public static void displayAllEmployeesWithHighWorkDuration() {
-        TasksManagement.getEmployees().stream()
+//    //initial method that displays on the screen the employees
+//    public static void displayAllEmployeesWithHighWorkDuration() {
+//        TasksManagement.getEmployees().stream()
+//                .filter(e -> TasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee()) > 40)
+//                .sorted(Comparator.comparingInt(e -> TasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee())))
+//                .map(Employee::getName)
+//                .forEach(System.out::println);
+//    }
+
+    //same method but returns of list of the employees so I can display them on the gui
+    public static List<Employee> getEmployeesWithHighWorkDuration() {
+        return TasksManagement.getEmployees().stream()
                 .filter(e -> TasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee()) > 40)
                 .sorted(Comparator.comparingInt(e -> TasksManagement.calculateEmployeeWorkDuration(e.getIdEmployee())))
-                .map(Employee::getName)
-                .forEach(System.out::println);
+                .collect(Collectors.toList());
     }
 
     public static Map<String, Map<String, Integer>> getTaskStatusCount() {
@@ -50,25 +59,6 @@ public class Utility {
 
         tasksList.add(currentTask);
     }
-
-//    public static void createTask(int idTask, String statusTask, String nameTask, List<String> taskNames) {
-//        ComplexTask currentTask = new ComplexTask(idTask, statusTask, nameTask);
-//        if (tasksList.stream().anyMatch(task -> task.getIdTask() == idTask)) {
-//            throw new IllegalArgumentException("Task already exists.");
-//        }
-//
-//        for (String taskName : taskNames) {
-//            Optional<Task> foundTask = tasksList.stream()
-//                    .filter(task -> task.getNameTask().equals(taskName))
-//                    .findFirst();
-//
-//            foundTask.ifPresent(currentTask::addTask);
-//        }
-//
-//        tasksList.add(currentTask);
-//        System.out.println("Created Task: " + currentTask.getIdTask());
-//    }
-
 
     public static void createTask(int idTask, String nameTask, List<Task> tasks) {
         ComplexTask currentTask = new ComplexTask(idTask, nameTask);
@@ -106,13 +96,6 @@ public class Utility {
     public static Task findTaskById(int idTask) {
         return tasksList.stream()
                 .filter(task -> task.getIdTask() == idTask)
-                .findFirst()
-                .orElse(null);
-    }
-
-    public static Task findTaskByName(String taskName) {
-        return tasksList.stream()
-                .filter(task -> task.getNameTask().equals(taskName))
                 .findFirst()
                 .orElse(null);
     }

@@ -37,7 +37,11 @@ public class TasksManagement implements Serializable {
             throw new IllegalArgumentException("Task not found.");
         }
 
-        tasksMap.computeIfAbsent(employee, e -> new ArrayList<>()).add(task);
+        tasksMap.computeIfAbsent(employee, e -> new ArrayList<>());
+
+        if (!tasksMap.get(employee).contains(task)) {
+            tasksMap.get(employee).add(task);
+        }
     }
 
     public static int calculateEmployeeWorkDuration(int idEmployee) {
