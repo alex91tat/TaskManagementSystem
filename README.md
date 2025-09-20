@@ -1,5 +1,5 @@
 # 📌 Task Management System  
--  **Mini project for my Fundamental Programming Techniques university course**
+-  **Mini project for my Fundamental Programming Techniques assignment of my second year university course**
 
 > **Task Management System** is a Java FX desktop application designed to organize employees and their assigned tasks efficiently.  
 > It supports creating simple and complex tasks, assigning them, updating progress, and generating useful workload statistics.  
