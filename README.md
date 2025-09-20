@@ -28,7 +28,7 @@
 | Technology | Purpose |
 |------------|---------|
 | **Java 17+** | Core programming language |
-| **Swing (Java UI)** | Graphical user interface |
+| **Java FX (Java UI)** | Graphical user interface |
 | **Serialization** | Data persistence |
 | **OOP Principles** | Modular and maintainable design |
 | **Composite Design Pattern** | Task hierarchy (simple & complex tasks) |
@@ -48,9 +48,9 @@
 
 ## 📂 Project Structure  
 
-- **Model Layer** → Employee, Task (sealed), SimpleTask, ComplexTask  
-- **Service Layer** → Task assignment, workload calculation, status management  
-- **Utility Layer** → Statistics and data analysis  
-- **UI Layer** → Swing-based interface for interaction  
+- **Data Model Layer** → Employee, Task (sealed), SimpleTask, ComplexTask  
+- **Business Logic Layer** → Task assignment, workload calculation, status management  
+- **Data Access Layer** → Data Serialization  
+- **UI Layer** → FX-based interface for interaction  
 
 ---
